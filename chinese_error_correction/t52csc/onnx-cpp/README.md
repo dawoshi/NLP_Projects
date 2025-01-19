@@ -25,7 +25,6 @@ bazel build //chinese_error_correction/t52csc/onnx-cpp/model:t5_error_correction
 
 # onnx file and tokenizer config file
 
-```
 config.json
 decoder_model_quant.onnx
 decoder_with_past_model_quant.onnx
@@ -35,7 +34,6 @@ special_tokens_map.json
 tokenizer.json
 tokenizer_config.json
 
-```
 data/chinese_error_correction/t52csc/onnx-cpp/model
 
 # 执行
