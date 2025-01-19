@@ -1,24 +1,3 @@
-	:û
-í
-
-auth_token
-str_instr_out1str_out2triton_invoker"AzureTritonInvoker*
-
-model_name"str *G
-	model_uri"7https://endpoint-7270363.westus2.inference.ml.azure.com *
-model_version"1 *
-verbose"1 :com.microsoft.extensionsgraphZ!
-
-auth_token
-
-ÿÿÿÿÿÿÿÿÿZ
-str_in
-
-ÿÿÿÿÿÿÿÿÿb
-str_out1
-
-ÿÿÿÿÿÿÿÿÿb
-str_out2
-
-ÿÿÿÿÿÿÿÿÿB
-com.microsoft.extensions
+version https://git-lfs.github.com/spec/v1
+oid sha256:311442e80a5c46066a035cc295b2bf889197458b48a715fd051490e80ef49287
+size 414
