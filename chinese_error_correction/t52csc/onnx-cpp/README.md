@@ -8,32 +8,41 @@
 
 ## 环境
 
-- bazel 2.0.0
-- onnxruntime-linux-x64-1.13.1
+- bazel 8.0.0
+- onnxruntime-linux-x64-1.20.1
 
 ## 效果
+title 级别
+test courps len count: 700
 
-test courps len count: 10000
-
-Totle run Time : 226222ms
-
-title级别的推理速度达到 22ms
+Totle run Time : 139136ms
 
 ## 使用说明
 ```
 # 编译：
 
-bazel build //name_entity_recognition/mrc-ner/onnx-cpp/model:model_test
+bazel build //chinese_error_correction/t52csc/onnx-cpp/model:t5_error_correction_test
 
-# model.onnx和vocab.txt
+# onnx file and tokenizer config file
 
-data/name_entity_recognition/mrc-ner/onnx-cpp/model/
+```
+config.json
+decoder_model_quant.onnx
+decoder_with_past_model_quant.onnx
+encoder_model_quant.onnx
+generation_config.json
+special_tokens_map.json
+tokenizer.json
+tokenizer_config.json
+
+```
+data/chinese_error_correction/t52csc/onnx-cpp/model
 
 # 执行
 
-nohup ./bazel-bin/name_entity_recognition/mrc-ner/onnx-cpp/model/model_test
+nohup ./bazel-bin/chinese_error_correction/t52csc/onnx-cpp/model/t5_error_correction_test &
 
 ```
 
 ## 参考
-[1] https://github.com/ShannonAI/mrc-for-flat-nested-ner 
+[1] https://github.com/shibing624/pycorrector
