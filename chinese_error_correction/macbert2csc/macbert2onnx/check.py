@@ -47,7 +47,7 @@ def create_onnxruntime_input(vocab_size, batch_size, sequence_length, input_name
 
 
 def onnx_test():
-    model = "/root/autodl-tmp/pre_trained_model/macbert4csc-base-chinese"
+    model = "/pre_trained_model/macbert4csc-base-chinese"
     tokenizer = BertTokenizer.from_pretrained(model)
     sent = '下个星期，我跟我朋唷打算去法国玩儿'
     tokenized_tokens = tokenizer(sent)
@@ -90,11 +90,10 @@ def onnx_test():
     )[0]
     # print(result)
     for idx, token_id in enumerate(result[0]):
-        print(token_id)
         predicted_token = tokenizer.convert_ids_to_tokens([token_id])[0]
         if(token_id == 102):
             source = "SEP"
         else:
             source = sent[idx-1]
-        # print('text : {} -> new text : {}'.format(source, predicted_token))
+        print('text : {} -> new text : {}'.format(source, predicted_token))
 onnx_test()

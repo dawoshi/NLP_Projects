@@ -30,18 +30,14 @@ def get_errors(corrected_text, origin_text):
             sub_details.append((ori_char, corrected_text[i], i, i + 1))
     sub_details = sorted(sub_details, key=operator.itemgetter(2))
     return corrected_text, sub_details
-#/root/autodl-tmp/codes/nlp-bazel-tutorial/chinese_error_correction/macbert2csc/macbert2onnx
-base = "/root/autodl-tmp"
 model_access = base + "/pre_trained_model/macbert4csc-base-chinese"
 onnx_path = "macbert4csc.onnx"
 
-texts = ["今天新情很好", "你找到你最喜欢的工作，我也很高心。"]
+texts = ["今天新情很好", "今天天七怎么样?"]
 
 tokenizer = BertTokenizer.from_pretrained(model_access)
 model = BertForMaskedLM.from_pretrained(model_access)
 config = model.config
-# print(model)
-# print(config)
 
 tokenized_tokens = tokenizer(texts, padding=True, return_tensors='pt')
 print(tokenized_tokens)
