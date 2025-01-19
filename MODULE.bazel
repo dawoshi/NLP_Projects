@@ -26,17 +26,17 @@ http_archive(
     urls = ["https://github.com/google/sentencepiece/archive/refs/tags/v0.1.96.zip"],
 )
 
-bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
-archive_override(
-    module_name = "opencv",
-    patches = [
-        "@//bazel/opencv:BUILD.patch",
-        "@//bazel/opencv:MODULE.bazel.patch",
-    ],
-    strip_prefix = "opencv-4.5.4",
-    urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
-)
-
+# bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
+# archive_override(
+#     module_name = "opencv",
+#     patches = [
+#         "@//bazel/opencv:BUILD.patch",
+#         "@//bazel/opencv:MODULE.bazel.patch",
+#     ],
+#     strip_prefix = "opencv-4.5.4",
+#     urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
+# )
+# 
 # bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
 # archive_override(
 #     module_name = "opencv",
