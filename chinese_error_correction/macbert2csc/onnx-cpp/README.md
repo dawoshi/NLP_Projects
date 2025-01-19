@@ -8,32 +8,33 @@
 
 ## 环境
 
-- bazel 2.0.0
-- onnxruntime-linux-x64-1.13.1
+- bazel 8.0.0
+- onnxruntime-linux-x64-1.20.1
 
 ## 效果
 
-test courps len count: 10000
+test courps len count: 
 
-Totle run Time : 226222ms
+Totle run Time : 
 
-title级别的推理速度达到 22ms
+title级别的推理速度达到 
 
 ## 使用说明
 ```
 # 编译：
 
-bazel build //name_entity_recognition/mrc-ner/onnx-cpp/model:model_test
+bazel build //chinese_error_correction/macbert2csc/onnx-cpp/model:mac_bert_error_correction_test
+
 
 # model.onnx和vocab.txt
 
-data/name_entity_recognition/mrc-ner/onnx-cpp/model/
+data/chinese_error_correction/macbert2csc/onnx-cpp/model/
 
 # 执行
 
-nohup ./bazel-bin/name_entity_recognition/mrc-ner/onnx-cpp/model/model_test
+nohup ./bazel-bin/chinese_error_correction/macbert2csc/onnx-cpp/model/mac_bert_error_correction_test &
 
 ```
 
 ## 参考
-[1] https://github.com/ShannonAI/mrc-for-flat-nested-ner 
+[1] https://github.com/shibing624/pycorrector

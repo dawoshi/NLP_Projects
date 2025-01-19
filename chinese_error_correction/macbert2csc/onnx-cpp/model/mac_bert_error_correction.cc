@@ -83,7 +83,7 @@ void MacBertErrorCorrection::infer(
     tokenizer_->tokenize(query.c_str(), &query_tokens, 10000);
     query_tokens.insert(query_tokens.begin(), "[CLS]");
     query_tokens.push_back("[SEP]");
-    std::vector<int64_t> token_ids;
+    std::vector<uint64_t> token_ids;
     token_ids.clear();
     tokenizer_->convert_tokens_to_ids(query_tokens, token_ids); 
 
