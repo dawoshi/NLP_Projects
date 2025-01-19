@@ -1,0 +1,105 @@
+###############################################################################
+# Bazel now uses Bzlmod by default to manage external dependencies.
+# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
+#
+# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
+###############################################################################
+
+
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "abseil-cpp", version = "20240116.2")
+bazel_dep(name = "darts-clone", version = "0.32")
+bazel_dep(name = "nlohmann_json", version = "3.11.3.bcr.1")
+bazel_dep(name = "gsl", version = "4.0.0")
+
+
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_google_sentencepiece",
+    build_file = "@//bazel:sentencepiece.bazel",
+    patch_args = ["-p1"],
+    patches = ["@//bazel:sentencepiece.patch"],
+    sha256 = "8409b0126ebd62b256c685d5757150cf7fcb2b92a2f2b98efb3f38fc36719754",
+    strip_prefix = "sentencepiece-0.1.96",
+    urls = ["https://github.com/google/sentencepiece/archive/refs/tags/v0.1.96.zip"],
+)
+
+bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
+archive_override(
+    module_name = "opencv",
+    patches = [
+        "@//bazel/opencv:BUILD.patch",
+        "@//bazel/opencv:MODULE.bazel.patch",
+    ],
+    strip_prefix = "opencv-4.5.4",
+    urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
+)
+
+# bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
+# archive_override(
+#     module_name = "opencv",
+#     # integrity = "sha256-4223495e6cd67011f86b8ecd9be1fa105018f3b1",
+#     # sha256 = "be976b9ef14f1deaa282fb6e30d75aa8016a2d5c1f08e85795c235148940d753",
+#     patches = [
+#         "@//bazel/opencv:BUILD.patch",
+#         "@//bazel/opencv:MODULE.bazel.patch",
+#     ],
+#     strip_prefix = "opencv-4.5.4",
+#     urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
+# )
+# 
+
+# http_archive(
+#     name = "opencv",
+#     url = "https://github.com/opencv/opencv/archive/refs/tags/4.10.0.zip",
+#     integrity = "sha256-OBC8orHRxXKRLfCsOIgSY0Hzdi39KOkQaMgF+2VtDlE=",
+#     strip_prefix = "opencv-4.10.0",
+#     patches = [
+#         "@//bazel/opencv:BUILD.patch",
+#         "@//bazel/opencv:MODULE.bazel.patch",
+#     ],
+# )
+# 
+
+
+# opencv deps
+# bazel_dep(name = "imath", version = "3.1.9")
+# bazel_dep(name = "zlib", version = "1.2.11")
+# bazel_dep(name = "libpng", version = "1.6.40")
+# bazel_dep(name = "libjpeg_turbo", version = "2.1.91")
+
+bazel_dep(name = "dlib", version = "19.24.6")
+archive_override(
+    module_name = "dlib",
+    strip_prefix = "dlib-19.24.6",
+    integrity = "sha256-IlE8NT7JwVMwDDlAUMlsqdCI4ClmrA9jnpieUDGMgtY=",
+    patches = [
+        "@//bazel/dlib:BUILD.patch",
+        "@//bazel/dlib:MODULE.bazel.patch",
+    ],
+    urls = ["https://github.com/davisking/dlib/archive/refs/tags/v19.24.6.tar.gz"],
+)
+
+# http_archive(
+#     name = "jpeg_archive",
+#     build_file = "@//bazel:jpeg.BUILD",
+#     sha256 = "240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052",
+#     strip_prefix = "jpeg-9b",
+#     urls = [
+#         "https://mirror.bazel.build/www.ijg.org/files/jpegsrc.v9b.tar.gz",
+#         "http://www.ijg.org/files/jpegsrc.v9b.tar.gz",
+#     ],
+# )
+# 
+# http_archive(
+#     name = "zlib_archive",
+#     build_file = "@//bazel:zlib.BUILD",
+#     sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+#     strip_prefix = "zlib-1.2.11",
+#     urls = [
+#         "https://mirror.bazel.build/zlib.net/zlib-1.2.11.tar.gz",
+#         "https://zlib.net/zlib-1.2.11.tar.gz",
+#     ],
+# )

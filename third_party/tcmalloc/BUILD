@@ -55,12 +55,12 @@ cc_library(
     ],
 )
 
-sh_library(
-    name = "pprof",
-    testonly = True,
-    srcs = [
-        "chromium/src/pprof",
-    ],
-    licenses = ["permissive"],
-    visibility = ["//third_party/tcmalloc/chromium/src/tests:__pkg__"],
-)
+# sh_library(
+#     name = "pprof",
+#     testonly = True,
+#     srcs = [
+#         "chromium/src/pprof",
+#     ],
+#     licenses = ["permissive"],
+#     visibility = ["//third_party/tcmalloc/chromium/src/tests:__pkg__"],
+# )

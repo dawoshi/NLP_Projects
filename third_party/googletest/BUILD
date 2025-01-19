@@ -28,18 +28,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Author: misterg@google.com (Gennadiy Civil)
-#
 #   Bazel Build for Google C++ Testing Framework(Google Test)
 
 package(default_visibility = ["//visibility:public"])
 
-licenses(["notice"])
-
-config_setting(
-    name = "windows",
-    constraint_values = ["@bazel_tools//platforms:windows"],
-)
 
 config_setting(
     name = "has_absl",
@@ -76,11 +68,13 @@ cc_library(
         "googlemock/include/gmock/*.h",
     ]),
     copts = select({
-        ":windows": [],
         "//conditions:default": ["-pthread"],
     }),
     defines = select({
         ":has_absl": ["GTEST_HAS_ABSL=1"],
+        "//conditions:default": [],
+    }),
+    features = select({
         "//conditions:default": [],
     }),
     includes = [
@@ -90,17 +84,23 @@ cc_library(
         "googletest/include",
     ],
     linkopts = select({
-        ":windows": [],
         "//conditions:default": ["-pthread"],
     }),
     deps = select({
         ":has_absl": [
-            "@com_google_absl//absl/debugging:failure_signal_handler",
-            "@com_google_absl//absl/debugging:stacktrace",
-            "@com_google_absl//absl/debugging:symbolize",
-            "@com_google_absl//absl/strings",
-            "@com_google_absl//absl/types:optional",
-            "@com_google_absl//absl/types:variant",
+            "@abseil-cpp//absl/container:flat_hash_set",
+            "@abseil-cpp//absl/debugging:failure_signal_handler",
+            "@abseil-cpp//absl/debugging:stacktrace",
+            "@abseil-cpp//absl/debugging:symbolize",
+            "@abseil-cpp//absl/flags:flag",
+            "@abseil-cpp//absl/flags:parse",
+            "@abseil-cpp//absl/flags:reflection",
+            "@abseil-cpp//absl/flags:usage",
+            "@abseil-cpp//absl/strings",
+            "@abseil-cpp//absl/types:any",
+            "@abseil-cpp//absl/types:optional",
+            "@abseil-cpp//absl/types:variant",
+            "@re2//:re2",
         ],
         "//conditions:default": [],
     }),
@@ -109,6 +109,9 @@ cc_library(
 cc_library(
     name = "gtest_main",
     srcs = ["googlemock/src/gmock_main.cc"],
+    features = select({
+        "//conditions:default": [],
+    }),
     deps = [":gtest"],
 )
 
@@ -127,6 +130,9 @@ cc_library(
         "googletest/samples/sample3-inl.h",
         "googletest/samples/sample4.h",
     ],
+    features = select({
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -145,6 +151,7 @@ cc_test(
         "googletest/samples/sample7_unittest.cc",
         "googletest/samples/sample8_unittest.cc",
     ],
+    linkstatic = 0,
     deps = [
         "gtest_sample_lib",
         ":gtest_main",

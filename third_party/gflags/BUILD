@@ -1,4 +1,5 @@
-load("@rules_cc//cc:defs.bzl", "cc_library")
+package(default_visibility = ["//visibility:public"])
+load("//build:compiler.bzl", "CXXOPTS")
 cc_library (
     name = "gflags",
     hdrs = glob(["src/*.h"]),
@@ -7,5 +8,4 @@ cc_library (
     linkstatic = True,
     strip_include_prefix = "src",
     linkopts = ["-pthread"],
-    visibility = ["//visibility:public"],
 )
