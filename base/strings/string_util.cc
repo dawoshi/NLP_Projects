@@ -867,6 +867,25 @@ bool ReplaceCharsT(const StringType& input,
       output, 0, CharacterMatcher<StringType>{find_any_of_these}, replace_with,
       ReplaceType::REPLACE_ALL);
 }
+template<class StringType>
+void DoReplaceSubstringsAfterOffset(StringType* str,
+                                    typename StringType::size_type start_offset,
+                                    const StringType& find_this,
+                                    const StringType& replace_with,
+                                    bool replace_all) {
+  if ((start_offset == StringType::npos) || (start_offset >= str->length()))
+    return;
+
+  DCHECK(!find_this.empty());
+  for (typename StringType::size_type offs(str->find(find_this, start_offset));
+      offs != StringType::npos; offs = str->find(find_this, offs)) {
+    str->replace(offs, find_this.length(), replace_with);
+    offs += replace_with.length();
+
+    if (!replace_all)
+      break;
+  }
+}
 
 void ReplaceFirstSubstringAfterOffset(string16* str,
                                       size_t start_offset,
@@ -896,6 +915,15 @@ void ReplaceSubstringsAfterOffset(string16* str,
 }
 
 void ReplaceSubstringsAfterOffset(std::string* str,
+                                   std::string::size_type start_offset,
+                                   const std::string& find_this,
+                                   const std::string& replace_with) {
+   DoReplaceSubstringsAfterOffset(str, start_offset, find_this, replace_with,
+                                  true);  // replace all instances
+}
+
+
+void ReplaceSubstringsAfterOffset(std::string* str,
                                   size_t start_offset,
                                   StringPiece find_this,
                                   StringPiece replace_with) {
@@ -903,6 +931,7 @@ void ReplaceSubstringsAfterOffset(std::string* str,
                               SubstringMatcher<std::string>{find_this},
                               replace_with, ReplaceType::REPLACE_ALL);
 }
+
 
 template <class string_type>
 inline typename string_type::value_type* WriteIntoT(string_type* str,

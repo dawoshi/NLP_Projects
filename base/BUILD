@@ -236,6 +236,7 @@ cc_library(
         "//base/strings:headers",
         "//base/system:headers",
         "//base/test:clang_coverage_headers",
+        "json_utils.hpp"
     ] + [
         # LINUX
         "linux_util.h",
@@ -261,6 +262,7 @@ cc_library(
         "//third_party/xdg_mime",
         "//third_party/xdg_user_dirs",
         "//build:build_config",
+        "@nlohmann_json//:json",
     ],
 )
 
