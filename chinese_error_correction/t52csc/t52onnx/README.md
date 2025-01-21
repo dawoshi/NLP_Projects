@@ -1,8 +1,7 @@
 # training:
-  请参考[pycorrector]
-  (url)[https://github.com/shibing624/pycorrector/tree/master/examples/t5]
+  [pycorrector](https://github.com/shibing624/pycorrector/tree/master/examples/t5)
 
-# 2onnx
+# convert to onnx
 
   ## optimum
   ```
