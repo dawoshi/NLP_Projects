@@ -1,0 +1,21 @@
+cc_library(
+    name = "llama_cpp",
+    visibility = ["//visibility:public"],
+    srcs = [
+        "ggml.c",
+        "ggml-alloc.c",
+        "ggml-backend.cpp",
+        "ggml-quants.c",
+        "llama.cpp",
+    ],
+    hdrs = [
+        "ggml.h",
+        "ggml-alloc.h",
+        "ggml-backend.h",
+        "ggml-backend-impl.h",
+        "ggml-impl.h",
+        "ggml-quants.h",
+        "llama-cpp.h",
+        "unicode.h",
+    ],
+)

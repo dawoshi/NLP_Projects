@@ -1,0 +1,109 @@
+/* Copyright 2023, The GenC Authors.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License
+==============================================================================*/
+
+syntax = "proto3";
+
+package genc.v0;
+
+import "third_party/llama.cpp/proto/v0/computation.proto";
+
+// Remote executor endpoint (the service counterpart of `executor.h`).
+service Executor {
+  // Maps to `CreateValue` in `executor.h`.
+  rpc CreateValue(CreateValueRequest) returns (CreateValueResponse) {}
+  // Maps to `CreateCall` in `executor.h`.
+  rpc CreateCall(CreateCallRequest) returns (CreateCallResponse) {}
+  // Maps to `CreateStruct` in `executor.h`.
+  rpc CreateStruct(CreateStructRequest) returns (CreateStructResponse) {}
+  // Maps to `CreateSelection` in `executor.h`.
+  rpc CreateSelection(CreateSelectionRequest)
+      returns (CreateSelectionResponse) {}
+  // Maps to `Materialize` in `executor.h`.
+  rpc Materialize(MaterializeRequest) returns (MaterializeResponse) {}
+  // Maps to `Dispose` in `executor.h`.
+  rpc Dispose(DisposeRequest) returns (DisposeResponse) {}
+}
+
+message CreateValueRequest {
+  Value value = 1;
+}
+
+message CreateValueResponse {
+  ValueRef value_ref = 1;
+}
+
+// A reference to a value that lives in the executor.
+message ValueRef {
+  string id = 1;
+}
+
+message CreateCallRequest {
+  ValueRef function_ref = 1;
+  ValueRef argument_ref = 2;
+}
+
+message CreateCallResponse {
+  ValueRef result_ref = 1;
+}
+
+message CreateStructRequest {
+  repeated ValueRef element_ref = 1;
+}
+
+message CreateStructResponse {
+  ValueRef struct_ref = 1;
+}
+
+message CreateSelectionRequest {
+  ValueRef source_ref = 1;
+  int32 index = 3;
+}
+
+message CreateSelectionResponse {
+  ValueRef selection_ref = 1;
+}
+
+message MaterializeRequest {
+  ValueRef value_ref = 1;
+}
+
+message MaterializeResponse {
+  Value value = 1;
+}
+
+message DisposeRequest {
+  repeated ValueRef value_ref = 1;
+}
+
+message DisposeResponse {}
+
+message ExecutorRequest {
+  oneof request {
+    CreateValueRequest create_value = 1;
+    CreateCallRequest create_call = 2;
+    CreateStructRequest create_struct = 3;
+    CreateSelectionRequest create_selection = 4;
+    MaterializeRequest materialize = 5;
+    DisposeRequest dispose = 6;
+  }
+}
+
+message ExecutorResponse {
+  oneof response {
+    CreateValueResponse create_value = 1;
+    CreateCallResponse create_call = 2;
+    CreateStructResponse create_struct = 3;
+    CreateSelectionResponse create_selection = 4;
+    MaterializeResponse materialize = 5;
+    DisposeResponse dispose = 6;
+  }
+}
