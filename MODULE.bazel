@@ -5,16 +5,55 @@
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
 
+bazel_dep(name = "platforms", version = "0.0.8")
+bazel_dep(name = "bazel_skylib", version = "1.4.1")
+bazel_dep(name = "abseil-cpp", version = "20230802.0.bcr.1", repo_name = "com_google_absl")
 
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
-bazel_dep(name = "abseil-cpp", version = "20240116.2")
 bazel_dep(name = "darts-clone", version = "0.32")
 bazel_dep(name = "nlohmann_json", version = "3.11.3.bcr.1")
 bazel_dep(name = "gsl", version = "4.0.0")
-
-
+bazel_dep(name = "grpc", version = "1.69.0", repo_name = "com_github_grpc_grpc")
+bazel_dep(name = "pybind11_protobuf", version = "0.0.0-20240524-1d7a729")
+bazel_dep(name = "pybind11_bazel", version = "2.13.6")
+bazel_dep(name = "re2", version = "2024-07-02", repo_name = "com_googlesource_code_re2")
+bazel_dep(name = "protobuf", version = "29.0", repo_name = "com_google_protobuf")
+bazel_dep(name = "tink_cc", version = "2.3.0")
+bazel_dep(name = "rules_proto", version = "6.0.2")
+bazel_dep(name = "rules_cc", version = "0.0.16")
+bazel_dep(name = "rules_java", version = "7.12.2")
+bazel_dep(name = "boringssl", version = "0.20241024.0")
+bazel_dep(name = "zlib", version = "1.3.1.bcr.3")
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+    name = "oak",
+    remote = "https://github.com/project-oak/oak.git",
+    branch = "main",
+)
+
+git_repository(
+    name = "io_grpc_grpc_java",
+    remote = "https://github.com/grpc/grpc-java.git",
+    tag = "v1.63.0",
+)
+
+git_repository(
+    name = "pantor_inja",
+    remote = "https://github.com/pantor/inja.git",
+    tag = "v3.4.0",
+    build_file = "//bazel:inja.BUILD",
+)
+
+http_archive(
+  name = "curl",
+  urls = ["https://curl.se/download/curl-8.4.0.tar.gz"],
+  sha256 = "816e41809c043ff285e8c0f06a75a1fa250211bbfb2dc0a037eeef39f1a9e427",
+  strip_prefix = "curl-8.4.0",
+  build_file = "//bazel:curl.BUILD",
+)
 
 http_archive(
     name = "com_google_sentencepiece",
@@ -25,50 +64,6 @@ http_archive(
     strip_prefix = "sentencepiece-0.1.96",
     urls = ["https://github.com/google/sentencepiece/archive/refs/tags/v0.1.96.zip"],
 )
-
-# bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
-# archive_override(
-#     module_name = "opencv",
-#     patches = [
-#         "@//bazel/opencv:BUILD.patch",
-#         "@//bazel/opencv:MODULE.bazel.patch",
-#     ],
-#     strip_prefix = "opencv-4.5.4",
-#     urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
-# )
-# 
-# bazel_dep(name = "opencv", version = "4.5.4", repo_name = "opencv")
-# archive_override(
-#     module_name = "opencv",
-#     # integrity = "sha256-4223495e6cd67011f86b8ecd9be1fa105018f3b1",
-#     # sha256 = "be976b9ef14f1deaa282fb6e30d75aa8016a2d5c1f08e85795c235148940d753",
-#     patches = [
-#         "@//bazel/opencv:BUILD.patch",
-#         "@//bazel/opencv:MODULE.bazel.patch",
-#     ],
-#     strip_prefix = "opencv-4.5.4",
-#     urls = ["https://github.com/opencv/opencv/archive/refs/tags/4.5.4.zip"],
-# )
-# 
-
-# http_archive(
-#     name = "opencv",
-#     url = "https://github.com/opencv/opencv/archive/refs/tags/4.10.0.zip",
-#     integrity = "sha256-OBC8orHRxXKRLfCsOIgSY0Hzdi39KOkQaMgF+2VtDlE=",
-#     strip_prefix = "opencv-4.10.0",
-#     patches = [
-#         "@//bazel/opencv:BUILD.patch",
-#         "@//bazel/opencv:MODULE.bazel.patch",
-#     ],
-# )
-# 
-
-
-# opencv deps
-# bazel_dep(name = "imath", version = "3.1.9")
-# bazel_dep(name = "zlib", version = "1.2.11")
-# bazel_dep(name = "libpng", version = "1.6.40")
-# bazel_dep(name = "libjpeg_turbo", version = "2.1.91")
 
 bazel_dep(name = "dlib", version = "19.24.6")
 archive_override(
@@ -81,25 +76,11 @@ archive_override(
     ],
     urls = ["https://github.com/davisking/dlib/archive/refs/tags/v19.24.6.tar.gz"],
 )
-
 # http_archive(
-#     name = "jpeg_archive",
-#     build_file = "@//bazel:jpeg.BUILD",
-#     sha256 = "240fd398da741669bf3c90366f58452ea59041cacc741a489b99f2f6a0bad052",
-#     strip_prefix = "jpeg-9b",
-#     urls = [
-#         "https://mirror.bazel.build/www.ijg.org/files/jpegsrc.v9b.tar.gz",
-#         "http://www.ijg.org/files/jpegsrc.v9b.tar.gz",
-#     ],
-# )
-# 
-# http_archive(
-#     name = "zlib_archive",
-#     build_file = "@//bazel:zlib.BUILD",
-#     sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
-#     strip_prefix = "zlib-1.2.11",
-#     urls = [
-#         "https://mirror.bazel.build/zlib.net/zlib-1.2.11.tar.gz",
-#         "https://zlib.net/zlib-1.2.11.tar.gz",
-#     ],
+#   name = "llama_cpp",
+#   sha256 = "edd7ba04ffa779325bbdcd4c017f3e528d2de84fdd7b687749923342ea0db67a",
+#   strip_prefix = "llama.cpp-b2223",
+#   urls = ["https://github.com/ggerganov/llama.cpp/archive/refs/tags/b2223.tar.gz"],
+#   patches = ["//bazel:llama_cpp.PATCH"],
+#   patch_args = ["-p1"],
 # )
