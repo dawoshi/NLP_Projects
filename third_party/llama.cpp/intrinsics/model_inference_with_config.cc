@@ -49,6 +49,7 @@ absl::Status ModelInferenceWithConfig::ExecuteCall(
                      arg.str(), "\"."));
     return absl::OkStatus();
   }
+  std::cout << "model_uri  " << model_uri;
   if (inference_map_.contains(model_uri)) {
     *result = GENC_TRY(inference_map_.at(model_uri)(intrinsic_pb, arg));
     return absl::OkStatus();

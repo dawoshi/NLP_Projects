@@ -25,7 +25,7 @@ limitations under the License
 #include "absl/synchronization/mutex.h"
 #include "third_party/llama.cpp/intrinsics/model_inference.h"
 #include "third_party/llama.cpp/proto/v0/computation.pb.h"
-#include "third_party/llama.cpp/llama_cpp_b2223/llama.h"
+#include "third_party/llama.cpp/llama_cpp_b3201/llama.h"
 
 namespace genc {
 ABSL_CONST_INIT absl::Mutex client_mutex(absl::kConstInit);
@@ -203,11 +203,11 @@ absl::StatusOr<v0::Value> LlamaCpp::LlamaCppCall(const v0::Value& input) {
 
     std::vector<char> piece(kMaxTokenLength);
     const int n_chars =
-        llama_token_to_piece(model_, new_token_id, piece.data(), piece.size());
+        llama_token_to_piece(model_, new_token_id, piece.data(), piece.size(), false);
     if (n_chars < 0) {
       piece.resize(-n_chars);
       int n_chars_after_resize = llama_token_to_piece(
-          model_, new_token_id, piece.data(), piece.size());
+          model_, new_token_id, piece.data(), piece.size(), false);
     } else {
       piece.resize(n_chars);
     }

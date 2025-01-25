@@ -22,7 +22,7 @@ limitations under the License
 #include "absl/strings/string_view.h"
 #include "third_party/llama.cpp/intrinsics/model_inference.h"
 #include "third_party/llama.cpp/proto/v0/computation.pb.h"
-#include "third_party/llama.cpp/llama_cpp_b2223/llama.h"
+#include "third_party/llama.cpp/llama_cpp_b3201/llama.h"
 
 namespace genc {
 

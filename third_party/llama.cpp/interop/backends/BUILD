@@ -17,7 +17,7 @@ cc_library(
         "//third_party/llama.cpp/intrinsics:model_inference",
         "//third_party/llama.cpp/runtime:status_macros",
         "//third_party/llama.cpp/proto/v0:computation_cc_proto",
-        "//third_party/llama.cpp/llama_cpp_b2223:llama_cpp",
+        "//third_party/llama.cpp/llama_cpp_b3201:llama_cpp",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",

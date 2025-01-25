@@ -32,12 +32,12 @@ limitations under the License
 #include "third_party/llama.cpp/runtime/status_macros.h"
 #include "third_party/llama.cpp/proto/v0/computation.pb.h"
 
-ABSL_FLAG(std::string, model_path, "", "Model Path (LlamaCPP Compatible)");
+ABSL_FLAG(std::string, model_path, "data/third_party/llama.cpp/models/qwen", "Model Path (LlamaCPP Compatible)");
 ABSL_FLAG(int, num_threads, 4, "Num threads for local model");
 ABSL_FLAG(int, max_tokens, 64, "Max tokens for local model (excluding prompt)");
 ABSL_FLAG(std::string, prompt, "Tell me a joke", "Prompt");
 
-constexpr absl::string_view kModelUri = "/device/gemma";
+constexpr absl::string_view kModelUri = "data/third_party/llama.cpp/models/qwen";
 
 int main(int argc, char* argv[]) {
   absl::ParseCommandLine(argc, argv);
